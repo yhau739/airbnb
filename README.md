@@ -10,6 +10,11 @@ npm install
 npm run serve
 ```
 
+### Run Watch for JSON DB
+```
+npx json-server --watch src/data/db.json
+```
+
 ### Compiles and minifies for production
 ```
 npm run build
