@@ -1,4 +1,4 @@
-# airbnb
+# airbnb Clone Project
 A vue3 project built with JSON Server. 
 - CRUD functionalities
 - RESTFUL APIs
