@@ -1,5 +1,7 @@
 # airbnb
-
+A vue3 project built with JSON Server. 
+- CRUD functionalities
+- RESTFUL APIs
 ## Project setup
 ```
 npm install
