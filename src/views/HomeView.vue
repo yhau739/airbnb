@@ -1,5 +1,24 @@
 <!-- Home Page -->
 <template>
+    <!-- <nav class="navbar">
+    <div class="navbar__left">
+      <router-link to="/" @click="displayAllListings">
+        <img :src="logoSrc" alt="Airbnb-Logo" class="logo-img">
+      </router-link>
+    </div>
+    <div class="navbar__center">
+      <ul>
+        <li><router-link to="/create" class="">Create a new listing</router-link></li>
+        <li><router-link :to="editUrl" class="hide-element">Edit your listing</router-link></li>
+      </ul>
+    </div>
+    <div class="navbar__right">
+      <ul>
+        <li v-if="sessionUserId"><router-link to="/create">Airbnb your Home</router-link></li>
+        <li><router-link to="/login">{{ sessionUserId ? 'Profile' : 'Login/Signup'}}</router-link></li>
+      </ul>
+    </div>
+  </nav> -->
   <nav class="second-navbar">
     <ul>
       <li v-for="data in categories" :key="data.type">
@@ -10,6 +29,22 @@
       </li>
     </ul>
   </nav>
+  <div v-if="showWelcomeMsg">
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h2>Welcome Mr Lee !</h2>
+        <a @click="closePopup" class="close" href="#">&times;</a>
+        <!-- &times represents the "x" cross -->
+        <div class="content">
+          This is the home page where all listings lies.
+          <br>
+          Look around !
+        </div>
+      </div>
+    </div>
+    <!-- Find user with this ID, then insert welcome message -->
+    <!-- {{ sessionUserId }} -->
+  </div>
   <div class="listings" v-if="listings.length">
     <div v-for="listing in filteredListings" :key="listing.id" class="card">
       <router-link class="card__link" :to="{ name: 'ListingDetail', params: { id: listing.id } }">
@@ -24,23 +59,42 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import getCategories from '../composables/getCategories'
 import getListings from '../composables/getListings'
 import { onMounted, onUnmounted, onUpdated } from 'vue'
+import { ref } from 'vue'
 
 export default {
-  setup() {
+  props: {
+    sessionUserId: {
+      type: Number,
+      default: null,
+    }
+  },
+  setup(props) {
     const { categories, errorCategories, loadCategories } = getCategories();
     const { listings, error, loadListings } = getListings();
+    const sessionUserId = ref(props.sessionUserId);
+    const showWelcomeMsg = ref(false);
+
+    // debug
+    if (sessionUserId.value) {
+      showWelcomeMsg.value = true;
+      console.log(sessionUserId);
+    }
 
     // mounted
     loadCategories();
     loadListings();
 
+    const closePopup = () => {
+      showWelcomeMsg.value = false;
+    }
+
     // return value to render on UI
-    return { listings, categories }
+    return { closePopup, sessionUserId, listings, categories, showWelcomeMsg }
   },
   data() {
     return {
@@ -80,6 +134,64 @@ export default {
 </script>
 
 <style scoped>
+/* Welcome message */
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  z-index: 999;
+  /* visibility: hidden; */
+  /* opacity: 0; */
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup .close:hover {
+  color: #06D85F;
+}
+
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+
 /* Second Navbar */
 .second-navbar {
   background-color: #ffffff;

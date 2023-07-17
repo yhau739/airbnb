@@ -75,7 +75,7 @@ import updateAllIDs from '@/composables/updateAllIDs'
 import router from '@/router'
 
 export default {
-    // Accept props in router 
+    // Accept props in router
     props: ['id'],
     setup(props) {
         const { listing, error, loadListing } = getListingById(props.id);
@@ -342,4 +342,3 @@ export default {
     transform: translateY(2px);
 }
 </style>
-  

@@ -69,7 +69,7 @@ import updateListing from '@/composables/updateListing'
 import router from '@/router'
 
 export default {
-  // Accept props in router 
+  // Accept props in router
   props: ['id'],
   setup(props) {
     const { listing, error, loadListing } = getListingById(props.id);
