@@ -1,14 +1,14 @@
 <template>
   <nav class="navbar">
     <div class="navbar__left">
-      <router-link to="/" @click="displayAllListings">
+      <router-link to="/">
         <img :src="logoSrc" alt="Airbnb-Logo" class="logo-img">
       </router-link>
     </div>
     <div class="navbar__center">
       <ul>
         <li><router-link to="/create" class="hide-element">Create a new listing</router-link></li>
-        <li><router-link :to="editUrl" class="hide-element">Edit your listing</router-link></li>
+        <li><router-link to="/create" class="hide-element">Edit your listing</router-link></li>
       </ul>
     </div>
     <div class="navbar__right">
