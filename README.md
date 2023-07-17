@@ -1,5 +1,7 @@
-# airbnb
-
+# airbnb Clone Project
+A vue3 project built with JSON Server. 
+- CRUD functionalities
+- RESTFUL APIs
 ## Project setup
 ```
 npm install
@@ -8,6 +10,11 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
+
+### Run Watch for JSON DB
+```
+npx json-server --watch src/data/db.json
 ```
 
 ### Compiles and minifies for production
