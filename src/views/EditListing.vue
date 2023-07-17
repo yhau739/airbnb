@@ -103,13 +103,6 @@ export default {
     },
     // this method only execute when theres a file change
     handleFileChange(Event) {
-      // if user did not edit image
-      // if (!(Event.target.files.length > 0)){
-      //   this.imageSrc = this.listing.imageSrc;
-      //   console.log(this.listing.imageSrc);
-      //   console.log("User did not change the img");
-      //   return ; // break
-      // }
 
       // Create a new FileReader
       const reader = new FileReader();
